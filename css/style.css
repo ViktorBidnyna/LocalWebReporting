@@ -1,0 +1,47 @@
+td{
+width: 55px;
+height: 55px;
+}
+
+td:hover{
+	background-color: #ddd;
+	cursor: pointer; 
+}
+
+#orangeBox {
+  /*background: #f90;*/
+  color: #ddd;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  font-size: 0.8em;
+  /*font-weight: bold;*/
+  /*text-align: center;*/
+  width: 15px;
+  height: 17px;
+  /*border-radius: 5px;*/
+}
+
+#nextBtn{
+width: 80px;
+}
+
+input[type=button]{
+	display: inline;
+	left: 300px;
+	bottom: 100px;
+	margin-left: 30px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+  border: 1px solid black;
+  padding: 3px;
+  text-align: center;
+}
+
+th {
+  font-weight: bold;
+  background-color: #E6E6E6;
+}
