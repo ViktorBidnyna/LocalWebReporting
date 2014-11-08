@@ -3,20 +3,19 @@
 <head>
 	<meta charset="utf-8" />
 	<script type="text/javascript" src="jquery/jQuery.js"></script>
-	<link rel="stylesheet" type="text/css" href="CSS/style.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-<div class="unselectable"> 
-  <select id="month" onclick="drawCalendar()"></select>
-  <select id="year" onclick="drawCalendar()"></select>  
-  <span id="previous"><</span>
-  <span id="next">></span>
-  </div>
+  <select id="month" onchange="changeDate()"></select>
+  <select id="year" onchange="changeDate()"></select>  
+  <input type="button" value="Previous" onclick="previousMonth()">
+  <input id="nextBtn" type="button" value="Next" onclick="nextMonth()">
   <p></p>
   <div id="panel">
   </div>
   <p></p>
   <p></p>
-  <script type="text/javascript" src="main.js"></script>
+  </br>
+  <script type="text/javascript" src="scripts/main.js"></script>
 </body>
 </html>
