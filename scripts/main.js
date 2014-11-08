@@ -93,7 +93,9 @@ function calendar(year, month){
 //Fill calendar empty fields if it does not end on Sunday
 
 	if(date.getDay() != 0){
+
 		for (var i=0; i < 7-date.getDay(); i++) {
+			
 			tab += '<td></td>';
 		}
 	}
@@ -109,21 +111,42 @@ function calendar(year, month){
 	return date;
 };
 
-fillMonthSelects();
-fillYearSelects();
+	fillMonthSelects();
+	fillYearSelects();
 
-///Drawing calendar
+	///Drawing calendar
+	drawCalendar();
 
-changeDate();
+	//Change calendar
+	function drawCalendar(){
+		var monthFromSelect = monthSelect.options[monthSelect.selectedIndex].value;
+		var yearFromSelect = yearSelect.options[yearSelect.selectedIndex].value;
+		
+		calendar(parseInt(yearFromSelect), monthes[monthFromSelect][0]);
+	}
 
-//Change calendar
+	var next =  document.getElementById('next');
+	var previous =  document.getElementById('previous');
 
-function changeDate(){
-	var monthFromSelect = monthSelect.options[monthSelect.selectedIndex].value;
-	var yearFromSelect = yearSelect.options[yearSelect.selectedIndex].value;
-	
-	calendar(parseInt(yearFromSelect), monthes[monthFromSelect][0]);
-}
+	//Events for next and previos button
+	previous.addEventListener('click', previousMonth, false);
+	next.addEventListener('click', nextMonth, false);
+
+	//Events for selecte and previos button
+
+	//Span styles
+    previous.style.onselectstart = function() { 
+        return false;
+    }
+    previous.style.onmousedown = function() { 
+        return false;
+    }
+    next.style.onselectstart = function() { 
+        return false;
+    }
+    next.style.onmousedown = function() { 
+        return false;
+    }
 
 function previousMonth(){
 	var monthFromSelect = monthSelect.options[monthSelect.selectedIndex].value;
@@ -139,8 +162,6 @@ function previousMonth(){
 			calendar(parseInt(yearFromSelect), monthes[monthFromSelect][0]-1);
 		}
 	}
-
- 	console.log(monthSelect.selectedIndex);
 	
 	if(yearSelect.selectedIndex > 0){	
 
@@ -162,7 +183,7 @@ function nextMonth(){
 	if(yearSelect.selectedIndex === yearSelect.options.length){
 
 		if(monthSelect.selectedIndex === 11){
-			console.log("No way back");
+			console.log("No way forward");
 		}else{
 			monthSelect.selectedIndex +=1;
 
