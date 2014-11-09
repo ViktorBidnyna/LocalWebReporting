@@ -1,18 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8" />	
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<meta charset="utf-8" />
+	<script type="text/javascript" src="jquery/jQuery.js"></script>
+	<link rel="stylesheet" type="text/css" href="CSS/style.css">
 </head>
 <body>
-<div class="unselectable"> 
-  <select id="month" onclick="drawCalendar()"></select>
-  <select id="year" onclick="drawCalendar()"></select>  
-  <span id="previous"><</span>
-  <span id="next">></span>
-  </div>
-  <p></p>
-  <div id="panel">
+  <div class="leftSide unselectable">
+    <div> 
+      <select id="month"></select>
+      <select id="year"></select>  
+      <span id="previous"><</span>
+      <span id="next">></span>
+    </div>
+    <p></p>
+    <div id="panel">
+    </div>
+  </div>  
+  <div class="rightSide">
+    <div class="container-for-daysTable">
+      <table id="daysTable">
+        <td width="52px"></td>
+        <td><div>Sunday</div></td>
+        <td><div>Monday</div></td>
+        <td><div>Tuesday</div></td>
+        <td><div>Wednesday</div></td>
+        <td><div>Thursday</div></td>
+        <td><div>Friday</div></td>
+        <td><div>Saturday</div></td>
+      </table>
+    </div>
+    <div class="container-for-timeTable">
+      <table id="timeTable">
+        <tr>
+          <td width="30px">
+            <div class="divDayTime">12AM</div>
+            <div class="divDayTime">1AM</div> 
+            <div class="divDayTime">2AM</div> 
+            <div class="divDayTime">3AM</div> 
+            <div class="divDayTime">4AM</div> 
+            <div class="divDayTime">5AM</div> 
+            <div class="divDayTime">6AM</div> 
+            <div class="divDayTime">7AM</div> 
+            <div class="divDayTime">8AM</div> 
+            <div class="divDayTime">9AM</div> 
+            <div class="divDayTime">10AM</div> 
+            <div class="divDayTime">11AM</div> 
+            <div class="divDayTime">12PM</div>
+            <div class="divDayTime">1PM</div> 
+            <div class="divDayTime">2PM</div> 
+            <div class="divDayTime">3PM</div> 
+            <div class="divDayTime">4PM</div> 
+            <div class="divDayTime">5PM</div> 
+            <div class="divDayTime">6PM</div> 
+            <div class="divDayTime">7PM</div> 
+            <div class="divDayTime">8PM</div> 
+            <div class="divDayTime">9PM</div> 
+            <div class="divDayTime">10PM</div> 
+            <div class="divDayTime">11PM</div> 
+          </td> 
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>4</td>
+          <td>5</td>
+          <td>6</td>
+          <td>7</td>      
+        </tr>
+      </table>
+    </div>
   </div>
   <p></p>
   <p></p>
