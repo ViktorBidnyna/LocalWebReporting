@@ -23,6 +23,9 @@
 			'December': [11]
 		};
 
+	//Current date
+	var currentDate = new Date();
+
 	//Filling tag <select> with id = 'month' by names of monthes 
 
 	var monthSelect = document.getElementById('month');
@@ -79,7 +82,7 @@
 	//Fill the calendar date of the month
 
 		do{	
-			tab += '<td>' + date.getDate() + '</td>';
+			tab += '<td id="' + date.getDate() + '"">' + date.getDate() + '</td>';
 			if(date.getDay() === 0){
 				tab +='</tr><tr>';
 			}
@@ -87,7 +90,7 @@
 
 		}while(date.getDate() < date.daysInMonth());
 
-		tab += '<td>' + date.getDate() + '</td>';
+		tab += '<td id="' + date.getDate() + '"">' + date.getDate() + '</td>';
 		
 	//Fill calendar empty fields if it does not end on Sunday
 
@@ -112,10 +115,29 @@
 		fillMonthSelects();
 		fillYearSelects();
 
-	///Drawing calendar
-	drawCalendar();
+	//Draw calendar with current date when page load
+	function drawCalendarOnload(){
 
-	//Change calendar
+		for(var i=0;i<monthSelect.options.length;i++){
+			if(monthSelect.options[i].index === currentDate.getMonth()){
+				monthSelect.options[i].selected = true;
+			}
+		}
+
+		for(var j=0;j<yearSelect.options.length;j++){
+			if(yearSelect.options[j].value === currentDate.getFullYear().toString()){
+				yearSelect.options[j].selected = true;
+			}
+		}
+
+		///Drawing calendar
+		drawCalendar();
+
+		var currentDay = document.getElementById(currentDate.getDate());
+		currentDay.style.backgroundColor = '#DEB887';
+	}
+
+	//Draw calendar
 	function drawCalendar(){
 		var monthFromSelect = monthSelect.options[monthSelect.selectedIndex].value;
 		var yearFromSelect = yearSelect.options[yearSelect.selectedIndex].value;
@@ -132,18 +154,18 @@
 	var previous =  document.getElementById('previous');	
 	
 	//Styles for span button
-	    previous.style.onselectstart = function() { 
-	        return false;
-	    }
-	    previous.style.onmousedown = function() { 
-	        return false;
-	    }
-	    next.style.onselectstart = function() { 
-	        return false;
-	    }
-	    next.style.onmousedown = function() { 
-	        return false;
-	    }
+	previous.style.onselectstart = function() { 
+	    return false;
+	}
+	previous.style.onmousedown = function() { 
+	    return false;
+	}
+	next.style.onselectstart = function() { 
+	  return false;
+	}
+	next.style.onmousedown = function() { 
+	    return false;
+	}
 
 	//Functions for next and previous button
 
@@ -184,21 +206,22 @@
 		if(yearSelect.selectedIndex === yearSelect.options.length){
 
 			if(monthSelect.selectedIndex === 11){
+
 				console.log("No way forward");
 			}else{
-				monthSelect.selectedIndex +=1;
 
+				monthSelect.selectedIndex +=1;
 				calendar(parseInt(yearFromSelect), monthes[monthFromSelect][0]+1);
 			}
 		}
 
 		if(yearSelect.selectedIndex < yearSelect.options.length && 
 				monthSelect.selectedIndex < 11){
-			
-			monthSelect.selectedIndex +=1;
 
+			monthSelect.selectedIndex +=1;
 			calendar(parseInt(yearFromSelect), monthes[monthFromSelect][0]+1);
 		}else{
+
 			monthSelect.selectedIndex = 0;
 			yearSelect.selectedIndex +=1;
 

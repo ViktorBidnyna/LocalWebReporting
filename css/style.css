@@ -12,7 +12,8 @@
 }
 
 .leftSide table td, th {
-  border: 1px solid black;
+  border: 1px solid gray;
+  border-radius: 3px;
   padding: 3px;
   text-align: center;
 }
@@ -95,7 +96,7 @@
 
 .rightSide #timeTable td .divDayTime{
   height: 42px;
-  border: 1px solid;
+  border: 1px solid gray;
   margin-top: 1px;
   width: 50px;
 }
