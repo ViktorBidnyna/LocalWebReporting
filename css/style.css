@@ -11,16 +11,18 @@
   font-size: 12px;
 }
 
+
+.leftSide table th {
+  font-weight: bold;
+  background-color: #E6E6E6;
+}
+
+
 .leftSide table td, th {
   border: 1px solid gray;
   border-radius: 3px;
   padding: 3px;
   text-align: center;
-}
-
-.leftSide table th {
-  font-weight: bold;
-  background-color: #E6E6E6;
 }
 
 .leftSide table td{
@@ -31,6 +33,11 @@
 .leftSide table td:hover{
 	background-color: #ddd;
 	cursor: pointer; 
+}
+
+.leftSide table td:nth-child(7n+6), 
+.leftSide table td:nth-child(7n+7){
+  color: red;
 }
 
 .leftSide .buttonSpan{
@@ -91,7 +98,7 @@
 .rightSide #timeTable td{  
   font-style: Helvetica, Arial, sans-serif;
   font-size: 14px;
-  text-align: right;
+  text-align: right; 
 }
 
 .rightSide #timeTable td .divDayTime{
