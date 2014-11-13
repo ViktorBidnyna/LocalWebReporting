@@ -1,5 +1,4 @@
 	//Function for getting days in month( Found in internet :-) )
-
 	Date.prototype.daysInMonth = function() {
 			return 33 - new Date(this.getFullYear(), this.getMonth(), 33).getDate();
 	};
@@ -7,7 +6,6 @@
 	////////////////////////////////////////////////////////////////////////////
 
 	//Object which represents monthes 
-
 	var monthes = {
 			'January': [0], 
 			'February': [1], 
@@ -27,7 +25,6 @@
 	var currentDate = new Date();
 
 	//Filling tag <select> with id = 'month' by names of monthes 
-
 	var monthSelect = document.getElementById('month');
 	var nowDate = new Date();
 
@@ -42,7 +39,6 @@
 	}
 
 	//Filling tag <select> with id = 'year' by nubers of years
-
 	var yearSelect = document.getElementById('year');
 
 	function fillYearSelects(){
@@ -55,7 +51,6 @@
 	}
 
 	//Create calendar
-
 	function calendar(year, month){
 		var monthes = ['Jenuary', 'February', 'March', 'April', 'May', 'June', 
 				'July', 'August', 'September', 'October', 'November', 'December'];
@@ -65,12 +60,11 @@
 		var tab = '<table><tr><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th>'+
 				'<th>Пт</th><th>Сб</th><th>Вс</th></tr><tr>';
 		
-	//Fill calendar with empty fields if month do not begin from Monday
-
+		//Fill calendar with empty fields if month do not begin from Monday
 		if(date.getDay() === 0){
 			for (var i=0; i < 6; i++) {
-	 			tab += '<td></td>';
-	 		}
+				tab += '<td></td>';
+			}
 		}
 
 		if(date.getDay() != 0){
@@ -79,8 +73,7 @@
 			}
 		}
 
-	//Fill the calendar date of the month
-
+		//Fill the calendar date of the month
 		do{	
 			tab += '<td id="' + date.getDate() + '"">' + date.getDate() + '</td>';
 			if(date.getDay() === 0){
@@ -92,8 +85,7 @@
 
 		tab += '<td id="' + date.getDate() + '"">' + date.getDate() + '</td>';
 		
-	//Fill calendar empty fields if it does not end on Sunday
-
+		//Fill calendar empty fields if it does not end on Sunday
 		if(date.getDay() != 0){
 
 			for (var i=0; i < 7-date.getDay(); i++) {
@@ -102,12 +94,10 @@
 			}
 		}
 
-	//Close table
-
+		//Close table
 		tab += '</tr></table>';
 
-	//Fill element with id='panel' table
-
+		//Fill element with id='panel' table
 		el.innerHTML = tab;
 		return date;
 	};
