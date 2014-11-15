@@ -62,7 +62,7 @@
 		
 		//Fill calendar with empty fields if month do not begin from Monday
 		if(date.getDay() === 0){
-			for (var i=0; i < 6; i++) {
+			for (var i=0; i < 6; i++){
 				tab += '<td></td>';
 			}
 		}
