@@ -69,7 +69,7 @@
 			for (var i = 0; i < 6; i++) {
 			//Create id for each cell in calendar
 		    var idCalendarDay = date.getFullYear().toString() + date.getMonth() + date.getDate();
-			tab += '<td onclick="" style="opacity: 0.4;" id="' + idCalendarDay + '">' + 
+			tab += '<td onclick="previousMonth()" style="opacity: 0.4;" id="' + idCalendarDay + '">' + 
 				date.getDate() + '</td>';
 
 			date.setDate(date.getDate()+1);
@@ -79,7 +79,7 @@
 			date.setDate(date.getDate() - (dayOfCurrentMonth-1));
 			for (var i = 0; i < dayOfCurrentMonth-1; i++) {
 				var idCalendarDay = date.getFullYear().toString() + date.getMonth() + date.getDate();
-				tab += '<td style="opacity: 0.4;" id="' + idCalendarDay + '">' + 
+				tab += '<td onclick="previousMonth()" style="opacity: 0.4;" id="' + idCalendarDay + '">' + 
 					date.getDate() + '</td>';
 
 				date.setDate(date.getDate()+1);
@@ -111,7 +111,8 @@
 			for (var i=0; i < 7-dayOfCurrentMonth; i++) {				
 				date.setDate(date.getDate()+1);
 		    	var idCalendarDay = date.getFullYear().toString() + date.getMonth() + date.getDate();
-				tab += '<td style="opacity: 0.4;" id="' + idCalendarDay + '">' + date.getDate() + '</td>';
+				tab += '<td onclick="nextMonth()" style="opacity: 0.4;" id="' + idCalendarDay + '">' + 
+					date.getDate() + '</td>';
 			}
 		}
 
@@ -142,9 +143,14 @@
 		}
 
 		///Drawing calendar
-		drawCalendar();
-		
+		drawCalendar();	
 
+		//Point current date
+		pointCurrentDate();	
+	}
+
+	//Function for pointing current date
+	function pointCurrentDate(){
 		var idCalendarDay = currentDate.getFullYear().toString() + currentDate.getMonth() + currentDate.getDate();
 		var currentDay = document.getElementById(idCalendarDay);
 		currentDay.style.backgroundColor = '#DEB887';
@@ -209,6 +215,9 @@
 				calendar(parseInt(yearFromSelect), monthes[monthFromSelect][0]-1);
 			}
 		}
+		
+		//Point current date
+		pointCurrentDate();	
 	}
 
 	//Function for next button 
@@ -239,7 +248,10 @@
 			yearSelect.selectedIndex +=1;
 
 			calendar(parseInt(yearFromSelect), monthes[monthFromSelect][0]+1);
-		}	
+		}
+
+		//Point current date
+		pointCurrentDate();	
 	}
 
 	//Events for next and previos button
