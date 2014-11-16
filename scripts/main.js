@@ -7,27 +7,26 @@
 
 	//Object which represents monthes 
 	var monthes = {
-			'January': [0], 
-			'February': [1], 
-			'March': [2], 
-			'April': [3],
-			'May': [4],
-			'June': [5], 
-			'July': [6], 
-			'August': [7],
-			'September': [8],
-			'October': [9],
-			'November': [10],
-			'December': [11]
+			'Січень': [0], 
+			'Лютий': [1], 
+			'Березень': [2], 
+			'Квітеь': [3],
+			'Травень': [4],
+			'Червень': [5], 
+			'Липень': [6], 
+			'Серпень': [7],
+			'Вересень': [8],
+			'Жовтень': [9],
+			'Листопад': [10],
+			'Грудень': [11]
 		};
 
 	//Current date
 	var currentDate = new Date();
 
-	//Filling tag <select> with id = 'month' by names of monthes 
 	var monthSelect = document.getElementById('month');
-	var nowDate = new Date();
 
+	//Filling tag <select> with id = 'month' by names of monthes 
 	function fillMonthSelects(){
 		var option = '';
 
@@ -38,9 +37,10 @@
 		monthSelect.innerHTML += option;
 	}
 
-	//Filling tag <select> with id = 'year' by nubers of years
+	
 	var yearSelect = document.getElementById('year');
 
+	//Filling tag <select> with id = 'year' by nubers of years
 	function fillYearSelects(){
 		var option = '';
 		for(var i = 1950; i< 2099; i++){
@@ -52,45 +52,66 @@
 
 	//Create calendar
 	function calendar(year, month){
-		var monthes = ['Jenuary', 'February', 'March', 'April', 'May', 'June', 
-				'July', 'August', 'September', 'October', 'November', 'December'];
+		var monthes = ['Січень', 'Лютий', 'Березень', 'Квітеь', 'Травень', 'Червень', 
+				'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень'];
 
 		var el = document.getElementById('panel');
 		var date = new Date(year, month);
-		var tab = '<table><tr><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th>'+
+		var tab = '<table id="calendarTable"><tr><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th>'+
 				'<th>Пт</th><th>Сб</th><th>Вс</th></tr><tr>';
-		
-		//Fill calendar with empty fields if month do not begin from Monday
-		if(date.getDay() === 0){
-			for (var i=0; i < 6; i++){
-				tab += '<td></td>';
+
+		//Number of days of the week which begins a month
+		var dayOfCurrentMonth = date.getDay();
+
+		//Fill calendar with previous month date if current month begins not from Monday
+		if(date.getDay() === 0){			
+			date.setDate(date.getDate()-6);
+			for (var i = 0; i < 6; i++) {
+			//Create id for each cell in calendar
+		    var idCalendarDay = date.getFullYear().toString() + date.getMonth() + date.getDate();
+			tab += '<td onclick="" style="opacity: 0.4;" id="' + idCalendarDay + '">' + 
+				date.getDate() + '</td>';
+
+			date.setDate(date.getDate()+1);
+			}
+		}else{
+			dayOfCurrentMonth = date.getDay();
+			date.setDate(date.getDate() - (dayOfCurrentMonth-1));
+			for (var i = 0; i < dayOfCurrentMonth-1; i++) {
+				var idCalendarDay = date.getFullYear().toString() + date.getMonth() + date.getDate();
+				tab += '<td style="opacity: 0.4;" id="' + idCalendarDay + '">' + 
+					date.getDate() + '</td>';
+
+				date.setDate(date.getDate()+1);
 			}
 		}
 
-		if(date.getDay() != 0){
-			for (var i=0; i < date.getDay()-1; i++) {
-				tab += '<td></td>';
-			}
-		}
+		//Fill the calendar date of the current month
 
-		//Fill the calendar date of the month
-		do{	
-			tab += '<td id="' + date.getDate() + '"">' + date.getDate() + '</td>';
+		//Days in month	
+		var days = date.daysInMonth();
+
+		for(var i=date.getDate(); i<=days; i++){
+			//Create id for each cell in calendar
+		    var idCalendarDay = date.getFullYear().toString() + date.getMonth() + date.getDate();
+			tab += '<td id="' + idCalendarDay + '">' + date.getDate() + '</td>';
+
 			if(date.getDay() === 0){
 				tab +='</tr><tr>';
 			}
-			date.setDate(date.getDate()+1);
 
-		}while(date.getDate() < date.daysInMonth());
-
-		tab += '<td id="' + date.getDate() + '"">' + date.getDate() + '</td>';
+			if(date.getDate()!=days){
+				date.setDate(date.getDate()+1);
+			}
+		}	
 		
-		//Fill calendar empty fields if it does not end on Sunday
+		//Fill calendar with next month date if current month ends not in Sunday
 		if(date.getDay() != 0){
-
-			for (var i=0; i < 7-date.getDay(); i++) {
-				
-				tab += '<td></td>';
+			dayOfCurrentMonth = date.getDay();
+			for (var i=0; i < 7-dayOfCurrentMonth; i++) {				
+				date.setDate(date.getDate()+1);
+		    	var idCalendarDay = date.getFullYear().toString() + date.getMonth() + date.getDate();
+				tab += '<td style="opacity: 0.4;" id="' + idCalendarDay + '">' + date.getDate() + '</td>';
 			}
 		}
 
@@ -122,8 +143,10 @@
 
 		///Drawing calendar
 		drawCalendar();
+		
 
-		var currentDay = document.getElementById(currentDate.getDate());
+		var idCalendarDay = currentDate.getFullYear().toString() + currentDate.getMonth() + currentDate.getDate();
+		var currentDay = document.getElementById(idCalendarDay);
 		currentDay.style.backgroundColor = '#DEB887';
 	}
 
@@ -132,7 +155,7 @@
 		var monthFromSelect = monthSelect.options[monthSelect.selectedIndex].value;
 		var yearFromSelect = yearSelect.options[yearSelect.selectedIndex].value;
 		
-		calendar(parseInt(yearFromSelect), monthes[monthFromSelect][0]);
+		calendar(parseInt(yearFromSelect), monthes[monthFromSelect][0]);	    
 	}
 	
 	//Events for <selects> (handle when change selected item)

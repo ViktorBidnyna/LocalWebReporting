@@ -2,7 +2,7 @@
 .leftSide{
   position: absolute;
   height: auto;
-  top: 20px;
+  top: 24px;
   bottom: 5px;
 }
 
@@ -107,7 +107,7 @@
   height: 1031px; 
   border: 1px solid gray;
   background-size: 43px 43px;
-  background-image: linear-gradient(0deg, gray 1%, white 1%);
+  background-image: linear-gradient(0deg, gray 1%, white 3%);
 }
 
 .div-time{
@@ -142,6 +142,11 @@
   width: 50px;
 }
 
+.dashedDiv{
+  height: 22px; 
+  margin-bottom: 18px; 
+  border-bottom: 1px dashed gray;
+}
 /*Prevent select ekements*/
 .unselectable>* {
   -moz-user-select: none; 
