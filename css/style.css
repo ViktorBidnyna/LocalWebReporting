@@ -1,0 +1,157 @@
+/*Left side style*/
+.leftSide{
+  position: absolute;
+  height: auto;
+  top: 24px;
+  bottom: 5px;
+}
+
+.leftSide table {  
+  font-family: Helvetica, Verdana, sans-serif;
+  font-size: 12px;
+}
+
+
+.leftSide table th {
+  font-weight: bold;
+  background-color: #E6E6E6;
+}
+
+
+.leftSide table td, th {
+  border: 1px solid gray;
+  border-radius: 3px;
+  padding: 3px;
+  text-align: center;
+}
+
+.leftSide table td{
+  width: 17px;
+  height: 17px;
+}
+
+.leftSide table td:hover{
+	background-color: #ddd;
+	cursor: pointer; 
+}
+
+.leftSide table td:nth-child(7n+6), 
+.leftSide table td:nth-child(7n+7){
+  color: red;
+}
+
+.leftSide .buttonSpan{
+  width: 15px;
+  height: 20px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.leftSide #next, #previous{
+  width: 15px;
+  height: 20px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 15px;
+}
+
+.leftSide #previous{
+  height: 20px;
+  margin-right: 3px;
+}
+
+.leftSide #next{
+  margin-left: 3px;
+}
+
+.leftSide #next, #previous:hover{
+  cursor: pointer;
+}
+
+/*Right side style*/
+.rightSide{
+  position: absolute;
+  right: 1px;
+  left: 210px;
+  top: 30px;
+  bottom: 10px;
+}
+
+.rightSide .container-for-daysTable{
+  position: absolute;
+  left: 62px;
+  right: 22px;
+}
+
+.rightSide .container-for-daysTable #daysTable{
+  text-align: center;
+}
+
+.rightSide .container-for-daysTable #daysTable td{
+  width: 14%;
+}
+
+.rightSide .container-for-timeTable{
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  top: 30px; 
+  bottom: 5px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.rightSide #daysTable, #timeTable{
+  width: 100%;
+}
+
+.rightSide .container-for-timeTable #timeTable .task{
+  height: 1031px; 
+  border: 1px solid gray;
+  background-size: 43px 43px;
+  background-image: linear-gradient(0deg, gray 1%, white 3%);
+}
+
+.div-time{
+  min-height: 42px; 
+  border: 1px solid;
+  border-bottom: 0;
+  border-left: 0;
+  border-right: 0;
+}
+
+.rightSide .container-for-timeTable #timeTable #tdDayTimes{
+  border: 1px solid gray;
+  border-top: 0;
+}
+
+.rightSide .container-for-timeTable #timeTable td{  
+  font-style: Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  text-align: right;
+}
+
+.rightSide .container-for-timeTable #timeTable td .divDayTime{
+  height: 42px;
+  width: 51px;
+  border: 1px solid gray;
+  border-bottom: 0;
+  border-left: 0;
+  border-right: 0;
+}
+
+.rightSide #weekDaysTable td .weekDays{
+  width: 50px;
+}
+
+.dashedDiv{
+  height: 22px; 
+  margin-bottom: 18px; 
+  border-bottom: 1px dashed gray;
+}
+/*Prevent select ekements*/
+.unselectable>* {
+  -moz-user-select: none; 
+  -khtml-user-select: none; 
+  -webkit-user-select: none; 
+  -o-user-select: none;      
+}
+
