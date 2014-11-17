@@ -21,9 +21,6 @@
 			'Грудень': [11]
 		};
 
-	//Current date
-	var currentDate = new Date();
-
 	var monthSelect = document.getElementById('month');
 
 	//Filling tag <select> with id = 'month' by names of monthes 
@@ -129,7 +126,8 @@
 
 	//Draw calendar with current date when page load
 	function drawCalendarOnload(){
-
+		//Current date
+		var currentDate = new Date();
 		for(var i=0;i<monthSelect.options.length;i++){
 			if(monthSelect.options[i].index === currentDate.getMonth()){
 				monthSelect.options[i].selected = true;
@@ -151,6 +149,8 @@
 
 	//Function for pointing current date
 	function pointCurrentDate(){
+		//Current date
+		var currentDate = new Date();
 		var idCalendarDay = currentDate.getFullYear().toString() + currentDate.getMonth() + currentDate.getDate();
 		var currentDay = document.getElementById(idCalendarDay);
 		currentDay.style.backgroundColor = '#DEB887';
@@ -161,7 +161,10 @@
 		var monthFromSelect = monthSelect.options[monthSelect.selectedIndex].value;
 		var yearFromSelect = yearSelect.options[yearSelect.selectedIndex].value;
 		
-		calendar(parseInt(yearFromSelect), monthes[monthFromSelect][0]);	    
+		calendar(parseInt(yearFromSelect), monthes[monthFromSelect][0]);
+
+		//Point current date
+		pointCurrentDate();		    
 	}
 	
 	//Events for <selects> (handle when change selected item)
