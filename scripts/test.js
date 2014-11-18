@@ -17,20 +17,17 @@ function taskAdd(){
 			timeDivs[i].addEventListener('click', func);	
 	}
 
-
 	var d = document.createElement('div');
 	d.className = 'in';
-	d.style.background = 'orange';
-	d.style.zIndex = '500';
 
 	function func(){
-		for(var i = 0; i < timeDivs.length; i++){
+		/*for(var i = 0; i < timeDivs.length; i++){
 			timeDivs[i].style.background = 'white';
 			timeDivs[i].style.height = '42px';
 			timeDivs[i].style.borderBottom = '1px solid gray';
 
-	}
-		this.style.background = 'gray';
+	}*/
+		this.appendChild(d);
 
 	}
 }
