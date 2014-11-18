@@ -21,12 +21,6 @@ function taskAdd(){
 	d.className = 'in';
 
 	function func(){
-		/*for(var i = 0; i < timeDivs.length; i++){
-			timeDivs[i].style.background = 'white';
-			timeDivs[i].style.height = '42px';
-			timeDivs[i].style.borderBottom = '1px solid gray';
-
-	}*/
 		this.appendChild(d);
 
 	}
