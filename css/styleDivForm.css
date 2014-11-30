@@ -1,0 +1,110 @@
+/*Style for tasks*/
+.timeDiv{
+ 	position: relative;
+}
+
+.taskDiv{
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 42px;
+	background :orange;
+	z-index: 700;
+}
+
+.formDiv{
+	position: absolute;
+	visibility: hidden;
+	background: #FDF5E6;
+	border-radius: 3px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	width: 450px;
+	height: 200px;
+	z-index: 1001;
+}
+
+.formDivSelect{
+	margin-top: 5px;
+	margin-left: 10px;
+}
+
+
+.inputTextTask, .inputTextWorkLog{
+	width: 140px;
+}
+
+.description{
+	width: 324px;
+	height: 70px;
+	min-width: 200px;
+	max-width: 325px;
+	max-height: 71px;
+	margin-top: 20px;
+	margin-left: 100px;
+
+
+}
+
+label{
+
+	font-size: 13px;
+	font-family: Verdana, serif;
+}
+.labelDescription{
+	position: absolute;
+	top: 63px;
+	left: 20px;
+	font-size: 13px;
+	font-family: Verdana, serif;
+}
+
+.inputTextTask{
+	margin-left: 20px;
+}
+
+.buttonDivForm{	
+	position: absolute;
+	bottom: 10px;
+	width: 90px;
+	background: -moz-linear-gradient(center top , #F5F5F5, #F1F1F1) repeat scroll 0% 0% #F5F5F5;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 2px;
+	color: #444;
+	cursor: pointer;
+	font-size: 11px;
+	font-weight: bold;
+	height: 27px;
+	line-height: 27px;
+	min-width: 54px;
+	outline: medium none;
+	padding: 0px 8px;
+	text-align: center;
+	transition: all 0.218s ease 0s;
+	-moz-user-select: none;
+}
+
+#confirmButton{
+	left: 70px;
+}
+
+#cancelButton{
+	right: 70px;
+}
+
+.inputTextHour, .inputTextMinute{
+	width: 50px;
+}
+
+.pointWeek{
+	background: #FAFAD2;
+}
+
+.currentDayTd{
+	background: #FFDAB9;
+	z-index: 10;
+}
+
+.pointedDay{
+	background: #ddd;
+	z-index: 101;
+}

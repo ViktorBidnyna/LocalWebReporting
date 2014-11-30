@@ -2,15 +2,18 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
-	<script type="text/javascript" src="jquery/jQuery.js"></script>
-	<link rel="stylesheet" type="text/css" href="CSS/style.css">
+	<link rel="stylesheet" type="text/css" href="CSS/styleMain.css">
+  <link rel="stylesheet" type="text/css" href="CSS/styleDivForm.css">
+  <script type="text/javascript" src="jQuery/jQuery.js"></script>  
 </head>
-<body onload="drawCalendarOnload()">
+<body>
+  <div class="header">
+  </div>
   <div class="leftSide unselectable">
     <div> 
       <span id="previous"><</span>
       <select id="month"></select>
-      <select id="year"></select>      
+      <select id="year"></select>
       <span id="next">></span>
     </div>
     <p></p>
@@ -20,13 +23,15 @@
   <div class="rightSide">
     <div class="container-for-daysTable">
       <table id="daysTable">
-        <td>Пн</td>
-        <td>Вт</td>
-        <td>Ср</td>
-        <td>Чт</td>
-        <td>Пт</td>
-        <td>Сб</td>
-        <td>Нд</td>
+        <tr>
+          <th><div clss="weekDay">Mn<div> </th>
+          <th><div clss="weekDay">Tu</div></th>
+          <th><div clss="weekDay">We</div></th>
+          <th><div clss="weekDay">Th</div></th>
+          <th><div clss="weekDay">Fr</div></th>
+          <th><div clss="weekDay">St</div></th>
+          <th><div clss="weekDay">Sn</div></th>
+        </tr>
       </table>
     </div>
     <div class="container-for-timeTable">

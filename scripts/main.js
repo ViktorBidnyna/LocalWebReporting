@@ -5,20 +5,25 @@
 
 	////////////////////////////////////////////////////////////////////////////
 
+    //Constants
+    var MINYEAR = 1950;
+    var MAXYEAR = 2099;
+    var DAYSINWEEK = 7;
+
 	//Object which represents monthes 
 	var monthes = {
-			'Січень': [0], 
-			'Лютий': [1], 
-			'Березень': [2], 
-			'Квітеь': [3],
-			'Травень': [4],
-			'Червень': [5], 
-			'Липень': [6], 
-			'Серпень': [7],
-			'Вересень': [8],
-			'Жовтень': [9],
-			'Листопад': [10],
-			'Грудень': [11]
+			'January': [0], 
+			'February': [1], 
+			'March': [2], 
+			'April': [3],
+			'May': [4],
+			'June': [5], 
+			'July': [6], 
+			'August': [7],
+			'September': [8],
+			'October': [9],
+			'November': [10],
+			'December': [11]
 		};
 
 	var monthSelect = document.getElementById('month');
@@ -28,7 +33,7 @@
 		var option = '';
 
 		for(key in monthes){
-		option +='<option>' + key + '</option>'; 
+		option += '<option>' + key + '</option>'; 
 		}
 
 		monthSelect.innerHTML += option;
@@ -40,28 +45,29 @@
 	//Filling tag <select> with id = 'year' by nubers of years
 	function fillYearSelects(){
 		var option = '';
-		for(var i = 1950; i< 2099; i++){
+		for(var i = MINYEAR; i < MAXYEAR; i++){
 		option +='<option>' + i + '</option>'; 
 		}
 
 		yearSelect.innerHTML += option;
 	}
 
+	fillMonthSelects();
+	fillYearSelects();
+
 	//Create calendar
 	function calendar(year, month){
-		var monthes = ['Січень', 'Лютий', 'Березень', 'Квітеь', 'Травень', 'Червень', 
-				'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень'];
-
-		var el = document.getElementById('panel');
+		var el = document.getElementById('panel');		
+		var currentDate = new Date();
 		var date = new Date(year, month);
-		var tab = '<table id="calendarTable"><tr><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th>'+
-				'<th>Пт</th><th>Сб</th><th>Вс</th></tr><tr>';
+		var tab = '<table id="calendarTable"><tr><th>Mn</th><th>Tu</th><th>We</th><th>Th</th>'+
+				'<th>Fr</th><th>St</th><th>Sn</th></tr><tr>';
 
 		//Number of days of the week which begins a month
 		var dayOfCurrentMonth = date.getDay();
 
 		//Fill calendar with previous month date if current month begins not from Monday
-		if(date.getDay() === 0){			
+		if(date.getDay() === 0){
 			date.setDate(date.getDate()-6);
 			for (var i = 0; i < 6; i++) {
 			//Create id for each cell in calendar
@@ -90,9 +96,16 @@
 
 		for(var i=date.getDate(); i<=days; i++){
 			//Create id for each cell in calendar
-		    var idCalendarDay = date.getFullYear().toString() + date.getMonth() + date.getDate();
-			tab += '<td id="' + idCalendarDay + '">' + date.getDate() + '</td>';
-
+		    var idCalendarDay = date.getFullYear() +'-'+ date.getMonth() +'-'+ date.getDate();
+		   
+		    if(currentDate.getDate() === date.getDate() && currentDate.getMonth() === date.getMonth() && 
+		    	currentDate.getFullYear() === date.getFullYear()){		    	
+				tab += '<td onclick="onCalendarButtonPress(event)" class="currentDayTd" id="' + idCalendarDay + '">' + date.getDate() + '</td>';
+		    }
+		    else{
+				tab += '<td onclick="onCalendarButtonPress(event)" id="' + idCalendarDay + '">' + date.getDate() + '</td>';
+			}
+			
 			if(date.getDay() === 0){
 				tab +='</tr><tr>';
 			}
@@ -105,9 +118,9 @@
 		//Fill calendar with next month date if current month ends not in Sunday
 		if(date.getDay() != 0){
 			dayOfCurrentMonth = date.getDay();
-			for (var i=0; i < 7-dayOfCurrentMonth; i++) {				
+			for (var i=0; i < DAYSINWEEK-dayOfCurrentMonth; i++) {				
 				date.setDate(date.getDate()+1);
-		    	var idCalendarDay = date.getFullYear().toString() + date.getMonth() + date.getDate();
+		    	var idCalendarDay = date.getFullYear() +'-'+ date.getMonth() +'-'+ date.getDate();
 				tab += '<td onclick="nextMonth()" style="opacity: 0.4;" id="' + idCalendarDay + '">' + 
 					date.getDate() + '</td>';
 			}
@@ -118,11 +131,9 @@
 
 		//Fill element with id='panel' table
 		el.innerHTML = tab;
+		isDrown = true;
 		return date;
 	};
-
-		fillMonthSelects();
-		fillYearSelects();
 
 	//Draw calendar with current date when page load
 	function drawCalendarOnload(){
@@ -142,18 +153,6 @@
 
 		///Drawing calendar
 		drawCalendar();	
-
-		//Point current date
-		pointCurrentDate();	
-	}
-
-	//Function for pointing current date
-	function pointCurrentDate(){
-		//Current date
-		var currentDate = new Date();
-		var idCalendarDay = currentDate.getFullYear().toString() + currentDate.getMonth() + currentDate.getDate();
-		var currentDay = document.getElementById(idCalendarDay);
-		currentDay.style.backgroundColor = '#DEB887';
 	}
 
 	//Draw calendar
@@ -161,10 +160,10 @@
 		var monthFromSelect = monthSelect.options[monthSelect.selectedIndex].value;
 		var yearFromSelect = yearSelect.options[yearSelect.selectedIndex].value;
 		
-		calendar(parseInt(yearFromSelect), monthes[monthFromSelect][0]);
+		calendar(parseInt(yearFromSelect), monthes[monthFromSelect][0]);   		
 
-		//Point current date
-		pointCurrentDate();		    
+		$('.taskDiv').remove();
+		$('.formDiv').hide(0);
 	}
 	
 	//Events for <selects> (handle when change selected item)
@@ -218,9 +217,6 @@
 				calendar(parseInt(yearFromSelect), monthes[monthFromSelect][0]-1);
 			}
 		}
-		
-		//Point current date
-		pointCurrentDate();	
 	}
 
 	//Function for next button 
@@ -252,11 +248,43 @@
 
 			calendar(parseInt(yearFromSelect), monthes[monthFromSelect][0]+1);
 		}
-
-		//Point current date
-		pointCurrentDate();	
 	}
 
 	//Events for next and previos button
 	previous.addEventListener('click', previousMonth, false);
 	next.addEventListener('click', nextMonth, false);
+
+	$(document).ready(drawCalendarOnload);
+
+	function onCalendarButtonPress(event){		
+		var elementId = event.target.id;
+		var date = elementId.split('-');
+
+		$('.taskDiv').remove();
+		$('.formDiv').hide(0);
+		$('.leftSide td').removeClass('pointWeek');
+		$('.leftSide td').removeClass('pointedDay');
+
+		$('#' + elementId).addClass('pointedDay');
+
+		var pointedDate = new Date(parseInt(date[0]), parseInt(date[1]), parseInt(date[2]));
+		//find Sunday
+		if(pointedDate.getDay()!==0)
+			pointedDate = new Date(parseInt(date[0]), parseInt(date[1]), parseInt(date[2])+(7-pointedDate.getDay()));
+
+		if(pointedDate.getDay() === 0){
+			var id;	
+			for(var i=-1; i < 6; i++){
+				id = pointedDate.getFullYear() +'-'+ pointedDate.getMonth() +'-'+ pointedDate.getDate();
+				$('#' + id).addClass('pointWeek');
+				pointedDate.setDate(pointedDate.getDate()-1);
+			}
+		}else{
+			var id;	
+			for(var i=-1; i < 6; i++){
+				id = pointedDate.getFullYear() +'-'+ pointedDate.getMonth() +'-'+ pointedDate.getDate();
+				$('#' + id).addClass('pointWeek');
+				pointedDate.setDate(pointedDate.getDate()-1);
+			}
+		}
+	}
