@@ -1,16 +1,16 @@
-	//Function for getting days in month( Found in internet :-) )
+	//Function for getting days in month
 	Date.prototype.daysInMonth = function() {
 			return 33 - new Date(this.getFullYear(), this.getMonth(), 33).getDate();
 	};
-
-	////////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////////////
 
     //Constants
     var MINYEAR = 1950;
     var MAXYEAR = 2099;
     var DAYSINWEEK = 7;
+    var daysWeekName = document.getElementsByClassName('weekDay');
 
-	//Object which represents monthes 
+	//Object which represents monthes
 	var monthes = {
 			'January': [0], 
 			'February': [1], 
@@ -37,8 +37,7 @@
 		}
 
 		monthSelect.innerHTML += option;
-	}
-
+	};
 	
 	var yearSelect = document.getElementById('year');
 
@@ -50,7 +49,7 @@
 		}
 
 		yearSelect.innerHTML += option;
-	}
+	};
 
 	fillMonthSelects();
 	fillYearSelects();
@@ -87,7 +86,7 @@
 
 				date.setDate(date.getDate()+1);
 			}
-		}
+		};
 
 		//Fill the calendar date of the current month
 
@@ -121,7 +120,7 @@
 			for (var i=0; i < DAYSINWEEK-dayOfCurrentMonth; i++) {				
 				date.setDate(date.getDate()+1);
 		    	var idCalendarDay = date.getFullYear() +'-'+ date.getMonth() +'-'+ date.getDate();
-				tab += '<td onclick="nextMonth()" style="opacity: 0.4;" id="' + idCalendarDay + '">' + 
+				tab += '<td onclick="nextMonth()"  style="opacity: 0.4;" id="' + idCalendarDay + '">' + 
 					date.getDate() + '</td>';
 			}
 		}
@@ -137,22 +136,28 @@
 
 	//Draw calendar with current date when page load
 	function drawCalendarOnload(){
+
 		//Current date
 		var currentDate = new Date();
-		for(var i=0;i<monthSelect.options.length;i++){
+		for(var i=0; i<monthSelect.options.length; i++){
 			if(monthSelect.options[i].index === currentDate.getMonth()){
 				monthSelect.options[i].selected = true;
 			}
 		}
 
-		for(var j=0;j<yearSelect.options.length;j++){
+		for(var j=0; j<yearSelect.options.length; j++){
 			if(yearSelect.options[j].value === currentDate.getFullYear().toString()){
 				yearSelect.options[j].selected = true;
 			}
 		}
 
-		///Drawing calendar
-		drawCalendar();	
+		//Drawing calendar
+		drawCalendar();
+		var currDateId = $('.currentDayTd').toArray()[0].id;
+		var currDate = currDateId.split('-');
+
+		getDaysOfPointedWeek(new Date(), currDate, daysWeekName);
+		 
 	}
 
 	//Draw calendar
@@ -175,19 +180,21 @@
 	var previous =  document.getElementById('previous');	
 	
 	//Styles for span button
-	previous.style.onselectstart = function() { 
-	    return false;
+	function buttonNextPreviousStyle(){
+		previous.style.onselectstart = function() { 
+		    return false;
+		}
+		previous.style.onmousedown = function() { 
+		    return false;
+		}
+		next.style.onselectstart = function() { 
+		  return false;
+		}
+		next.style.onmousedown = function() { 
+		    return false;
+		}
 	}
-	previous.style.onmousedown = function() { 
-	    return false;
-	}
-	next.style.onselectstart = function() { 
-	  return false;
-	}
-	next.style.onmousedown = function() { 
-	    return false;
-	}
-
+	buttonNextPreviousStyle();
 	//Functions for next and previous button
 
 	//Function for previous button 
@@ -196,18 +203,16 @@
 		var yearFromSelect = yearSelect.options[yearSelect.selectedIndex].value;
 
 		if(yearSelect.selectedIndex === 0){
-
 			if(monthSelect.selectedIndex === 0){
 				console.log("No way back");
-			} 
+			}
 			if(monthSelect.selectedIndex > 0) {
 				monthSelect.selectedIndex -=1;
 				calendar(parseInt(yearFromSelect), monthes[monthFromSelect][0]-1);
 			}
 		}
 		
-		if(yearSelect.selectedIndex > 0){	
-
+		if(yearSelect.selectedIndex > 0){
 			if(monthSelect.selectedIndex > 0){
 				monthSelect.selectedIndex -=1;
 				calendar(parseInt(yearFromSelect), monthes[monthFromSelect][0]-1);
@@ -225,27 +230,22 @@
 		var yearFromSelect = yearSelect.options[yearSelect.selectedIndex].value;	
 
 		if(yearSelect.selectedIndex === yearSelect.options.length){
-
 			if(monthSelect.selectedIndex === 11){
-
 				console.log("No way forward");
 			}else{
-
 				monthSelect.selectedIndex +=1;
 				calendar(parseInt(yearFromSelect), monthes[monthFromSelect][0]+1);
 			}
 		}
 
 		if(yearSelect.selectedIndex < yearSelect.options.length && 
-				monthSelect.selectedIndex < 11){
+			monthSelect.selectedIndex < 11){
 
 			monthSelect.selectedIndex +=1;
 			calendar(parseInt(yearFromSelect), monthes[monthFromSelect][0]+1);
 		}else{
-
 			monthSelect.selectedIndex = 0;
 			yearSelect.selectedIndex +=1;
-
 			calendar(parseInt(yearFromSelect), monthes[monthFromSelect][0]+1);
 		}
 	}
@@ -256,35 +256,55 @@
 
 	$(document).ready(drawCalendarOnload);
 
-	function onCalendarButtonPress(event){		
+	function onCalendarButtonPress(event){
 		var elementId = event.target.id;
 		var date = elementId.split('-');
+		var id;
+		var dateWeekArray = [];
+		var isSunday = false;
 
+		//Hide and remove previous
+		$('#' + id).parent('tr').css({"background": "#fff"});
 		$('.taskDiv').remove();
 		$('.formDiv').hide(0);
-		$('.leftSide td').removeClass('pointWeek');
+		$('tr').removeClass('pointWeek');
 		$('.leftSide td').removeClass('pointedDay');
 
+		var pointedDate = new Date(parseInt(date[0]), parseInt(date[1]), parseInt(date[2]));
+		id = pointedDate.getFullYear() +'-'+ pointedDate.getMonth() +'-'+ pointedDate.getDate();
+		$('#' + id).parent('tr').addClass('pointWeek');		
 		$('#' + elementId).addClass('pointedDay');
 
-		var pointedDate = new Date(parseInt(date[0]), parseInt(date[1]), parseInt(date[2]));
-		//find Sunday
-		if(pointedDate.getDay()!==0)
-			pointedDate = new Date(parseInt(date[0]), parseInt(date[1]), parseInt(date[2])+(7-pointedDate.getDay()));
+		getDaysOfPointedWeek(pointedDate, date, daysWeekName);		
+	}
 
+	//return array of week days which are pointed
+	function getDaysOfPointedWeek(pointedDate, date, daysWeekName){
+		
+		var tasks = $('#timeTable td').toArray();
+		console.log(tasks);
+		var dateWeekArray = [];
+		
+		//if Sunday
 		if(pointedDate.getDay() === 0){
-			var id;	
-			for(var i=-1; i < 6; i++){
+			pointedDate = new Date(parseInt(date[0]), parseInt(date[1]), parseInt(date[2])-6);	
+			for(var i=0; i < 7; i++){
 				id = pointedDate.getFullYear() +'-'+ pointedDate.getMonth() +'-'+ pointedDate.getDate();
-				$('#' + id).addClass('pointWeek');
-				pointedDate.setDate(pointedDate.getDate()-1);
-			}
+				dateWeekArray[i] = (pointedDate.getMonth() + 1) +'/'+ pointedDate.getDate();	
+				pointedDate.setDate(pointedDate.getDate()+1);
+			}	
 		}else{
-			var id;	
-			for(var i=-1; i < 6; i++){
+			pointedDate = new Date(parseInt(date[0]), parseInt(date[1]), parseInt(date[2])-(pointedDate.getDay()-1));
+			for(var i=0; i < 7; i++){
 				id = pointedDate.getFullYear() +'-'+ pointedDate.getMonth() +'-'+ pointedDate.getDate();
-				$('#' + id).addClass('pointWeek');
-				pointedDate.setDate(pointedDate.getDate()-1);
+				dateWeekArray[i] = (pointedDate.getMonth() + 1) +'/'+ pointedDate.getDate();			
+				pointedDate.setDate(pointedDate.getDate()+1);
 			}
 		}
+
+		for(var i=0; i<7; i++){
+			daysWeekName[i].innerHTML = daysWeekName[i].id +', '+ dateWeekArray[i];
+		}
+
+		//set to task divs classes
 	}

@@ -164,8 +164,11 @@ background-image: linear-gradient(to bottom, #FCFBF9 0%, #FAF9B6 0%);
   border-right: 0;
 }
 
-.rightSide #weekDaysTable td .weekDays{
-  width: 50px;
+.weekDay{
+  font-size: 11px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: auto;
+
 }
 
 .dashedDiv{
